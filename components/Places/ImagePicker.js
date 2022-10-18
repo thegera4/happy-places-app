@@ -10,8 +10,7 @@ import { Colors } from '../../constants/colors'
 const ImagePicker = () => {
   const [pickedImage, setPickedImage] = useState()
   //ios permissions
-  const [cameraPermissionInformation, requestPermission] = 
-  useCameraPermissions()
+  const [cameraPermissionInformation, requestPermission] = useCameraPermissions()
 
   //ios permissions
   async function verifyPermissions(){
@@ -23,34 +22,36 @@ const ImagePicker = () => {
       Alert.alert('Permission Denied', 'You need to grant camera permissions to use this app.', [
         {text: 'Okay'}
       ])
+
       return false
     }
     return true
   }
 
-
   async function takeImageHandler() {
     const hasPermission = await verifyPermissions() //ios permissions
     if(!hasPermission) return; //ios permissions
 
-    const image = await launchCameraAsync({
-      allowsEditing: true,
-      aspect: [16, 9],
-      quality: 0.5
-    })
-    setPickedImage(image.uri)
-  }
-
-  let imagePreview = <Text>No picture taken yet.</Text>
-
-  if(pickedImage){
-    imagePreview = <Image styles={styles.image} source={{uri: pickedImage}} />
+    try{
+      const image = await launchCameraAsync({
+        allowsEditing: true,
+        aspect: [16, 9],
+        quality: 0.5
+      })
+      setPickedImage(image.uri)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
     <View>
-      <View styles={styles.imagePreview}>
-        {imagePreview}
+      <View style={styles.preview}>
+        {!pickedImage ? (
+          <Text>No image picked yet.</Text>
+        ) : (
+          <Image style={styles.image} source={{uri: pickedImage}} />
+        )}
       </View>
       <Button title="Take Photo" onPress={takeImageHandler}/>
     </View>
@@ -60,7 +61,7 @@ const ImagePicker = () => {
 export default ImagePicker
 
 const styles = StyleSheet.create({
-  imagePreview: {
+  preview: {
     width: '100%',
     height: 200,
     marginVertical: 8,
@@ -69,8 +70,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary100,
     borderRadius: 4,
   },
-  image:{
+  image: {
     width: '100%',
     height: '100%',
-  },
+  }
 })
