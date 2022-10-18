@@ -1,4 +1,4 @@
-import { Alert, Button, Image, StyleSheet, Text, View } from 'react-native'
+import { Alert, Image, StyleSheet, Text, View } from 'react-native'
 import { 
   launchCameraAsync, 
   useCameraPermissions, //ios permissions
@@ -6,6 +6,7 @@ import {
 } from 'expo-image-picker'
 import { useState } from 'react'
 import { Colors } from '../../constants/colors'
+import OutlinedButton from '../UI/OutlinedButton'
 
 const ImagePicker = () => {
   const [pickedImage, setPickedImage] = useState()
@@ -53,7 +54,9 @@ const ImagePicker = () => {
           <Image style={styles.image} source={{uri: pickedImage}} />
         )}
       </View>
-      <Button title="Take Photo" onPress={takeImageHandler}/>
+      <OutlinedButton icon="camera" onPress={takeImageHandler}>
+        Take Image
+      </OutlinedButton>
     </View>
   )
 }
