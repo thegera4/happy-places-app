@@ -20,10 +20,7 @@ const ImagePicker = ({onTakeImage}) => {
       return permissionResult.granted
     }
     if(cameraPermissionInformation.status === PermissionStatus.DENIED){
-      Alert.alert('Permission Denied', 'You need to grant camera permissions to use this app.', [
-        {text: 'Okay'}
-      ])
-
+      Alert.alert('Permission Denied', 'You need to grant camera permissions to use this app.',)
       return false
     }
     return true
@@ -33,7 +30,6 @@ const ImagePicker = ({onTakeImage}) => {
     const hasPermission = await verifyPermissions() //ios permissions
     if(!hasPermission) return; //ios permissions
 
-    try{
       const image = await launchCameraAsync({
         allowsEditing: true,
         aspect: [16, 9],
@@ -41,9 +37,7 @@ const ImagePicker = ({onTakeImage}) => {
       })
       setPickedImage(image.uri)
       onTakeImage(image.uri)
-    } catch (err) {
-      console.error(err)
-    }
+
   }
 
   return (
