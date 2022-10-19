@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { Colors } from '../../constants/colors'
 import OutlinedButton from '../UI/OutlinedButton'
 
-const ImagePicker = () => {
+const ImagePicker = ({onTakeImage}) => {
   const [pickedImage, setPickedImage] = useState()
   //ios permissions
   const [cameraPermissionInformation, requestPermission] = useCameraPermissions()
@@ -40,6 +40,7 @@ const ImagePicker = () => {
         quality: 0.5
       })
       setPickedImage(image.uri)
+      onTakeImage(image.uri)
     } catch (err) {
       console.error(err)
     }
@@ -72,6 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.primary100,
     borderRadius: 4,
+    overflow: 'hidden'
   },
   image: {
     width: '100%',
