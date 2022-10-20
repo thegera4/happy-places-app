@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "happy-places-app",
-    "slug": "happy-places-app",
+    "name": "FavPlaces",
+    "slug": "FavPlaces",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,13 +18,19 @@
       "**/*"
     ],
     "ios": {
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.thegera.FavPlaces"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -36,6 +42,11 @@
           "cameraPermission": "The app needs access to your camera in order to take pictures of your favorite places."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7cdf827c-1092-41ed-a97e-716da6319c4f"
+      }
+    }
   }
 }
